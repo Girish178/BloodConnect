@@ -2,8 +2,11 @@ import axios from "axios";
 
 export const TOKEN_KEY = "bc_token";
 
+const PROD_API = "https://bloodconnect-qmbc.onrender.com/api";
+
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || "http://localhost:5000/api",
+  // local development uses your own computer; the live site uses Render
+  baseURL: import.meta.env.DEV ? "http://localhost:5000/api" : PROD_API,
 });
 
 api.interceptors.request.use((config) => {
