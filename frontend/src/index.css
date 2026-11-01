@@ -1,0 +1,481 @@
+@import "tailwindcss";
+
+/* ---------- Design tokens (Neo-brutalist) ---------- */
+@theme {
+  --color-brand-red: #e6302b;
+  --color-brand-red-dark: #c42420;
+  --color-brand-yellow: #facc15;
+  --color-brand-mint: #6ee7b7;
+  --color-brand-blue: #bfdbfe;
+  --color-brand-pink: #fbcfe8;
+  --color-brand-bg: #f5f4ef;
+  --color-ink: #000000;
+
+  --font-sans: "Plus Jakarta Sans", "Noto Sans Devanagari", ui-sans-serif, system-ui, sans-serif;
+  --font-head: "Space Grotesk", "Noto Sans Devanagari", ui-sans-serif, system-ui, sans-serif;
+
+  --shadow-brutal-sm: 3px 3px 0 #000;
+  --shadow-brutal: 4px 4px 0 #000;
+  --shadow-brutal-lg: 6px 6px 0 #000;
+  --shadow-brutal-xl: 8px 8px 0 #000;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #f5f4ef;
+  color: #000;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: #facc15;
+  color: #000;
+}
+
+/* Marathi (Devanagari) needs looser spacing than the tight English headings */
+html[lang="mr"] h1,
+html[lang="mr"] h2,
+html[lang="mr"] h3,
+html[lang="mr"] .font-head {
+  letter-spacing: 0 !important;
+}
+html[lang="mr"] h1,
+html[lang="mr"] h2 {
+  line-height: 1.25 !important;
+  text-transform: none;
+}
+html[lang="mr"] .uppercase {
+  text-transform: none;
+}
+
+/* ---------- Components ---------- */
+@layer components {
+  .brutal-border {
+    border: 3px solid #000;
+  }
+
+  /* Static card */
+  .card {
+    background: #fff;
+    border: 3px solid #000;
+    box-shadow: 5px 5px 0 #000;
+    padding: 1.25rem;
+  }
+  @media (min-width: 640px) {
+    .card {
+      padding: 1.5rem;
+    }
+  }
+
+  /* Card that lifts on hover (links, clickable tiles) */
+  .card-hover {
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .card-hover:hover {
+    transform: translate(-3px, -3px);
+    box-shadow: 8px 8px 0 #000;
+  }
+  .card-hover:active {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0 #000;
+  }
+
+  /* Buttons */
+  .btn,
+  .btn-primary,
+  .btn-outline,
+  .btn-yellow,
+  .btn-mint,
+  .btn-dark {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border: 3px solid #000;
+    box-shadow: 4px 4px 0 #000;
+    padding: 0.7rem 1.15rem;
+    font-family: var(--font-head);
+    font-weight: 800;
+    font-size: 0.8rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    line-height: 1.2;
+    cursor: pointer;
+    user-select: none;
+    transition: transform 0.1s ease, box-shadow 0.1s ease, background-color 0.15s ease;
+  }
+  .btn:hover:not(:disabled),
+  .btn-primary:hover:not(:disabled),
+  .btn-outline:hover:not(:disabled),
+  .btn-yellow:hover:not(:disabled),
+  .btn-mint:hover:not(:disabled),
+  .btn-dark:hover:not(:disabled) {
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0 #000;
+  }
+  .btn:active:not(:disabled),
+  .btn-primary:active:not(:disabled),
+  .btn-outline:active:not(:disabled),
+  .btn-yellow:active:not(:disabled),
+  .btn-mint:active:not(:disabled),
+  .btn-dark:active:not(:disabled) {
+    transform: translate(2px, 2px);
+    box-shadow: 1px 1px 0 #000;
+  }
+  .btn:disabled,
+  .btn-primary:disabled,
+  .btn-outline:disabled,
+  .btn-yellow:disabled,
+  .btn-mint:disabled,
+  .btn-dark:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+    box-shadow: 2px 2px 0 #000;
+  }
+  .btn:focus-visible,
+  .btn-primary:focus-visible,
+  .btn-outline:focus-visible,
+  .btn-yellow:focus-visible,
+  .btn-mint:focus-visible,
+  .btn-dark:focus-visible {
+    outline: 3px solid #facc15;
+    outline-offset: 2px;
+  }
+  html[lang="mr"] .btn,
+  html[lang="mr"] .btn-primary,
+  html[lang="mr"] .btn-outline,
+  html[lang="mr"] .btn-yellow,
+  html[lang="mr"] .btn-mint,
+  html[lang="mr"] .btn-dark {
+    text-transform: none;
+    letter-spacing: 0;
+    font-size: 0.9rem;
+  }
+
+  .btn-primary {
+    background: #e6302b;
+    color: #fff;
+  }
+  .btn-primary:hover:not(:disabled) {
+    background: #c42420;
+  }
+  .btn-outline {
+    background: #fff;
+    color: #000;
+  }
+  .btn-yellow {
+    background: #facc15;
+    color: #000;
+  }
+  .btn-mint {
+    background: #6ee7b7;
+    color: #000;
+  }
+  .btn-dark {
+    background: #000;
+    color: #fff;
+  }
+  .btn-dark:hover:not(:disabled) {
+    background: #1f1f1f;
+  }
+  .btn-sm {
+    padding: 0.45rem 0.8rem;
+    font-size: 0.7rem;
+    box-shadow: 3px 3px 0 #000;
+  }
+  .btn-lg {
+    padding: 1rem 1.6rem;
+    font-size: 0.95rem;
+  }
+
+  /* Form controls */
+  .input {
+    width: 100%;
+    border: 3px solid #000;
+    background: #fafaf7;
+    padding: 0.7rem 0.9rem;
+    font-size: 0.9rem;
+    font-weight: 700;
+    outline: none;
+    transition: transform 0.12s ease, box-shadow 0.12s ease, background-color 0.12s ease;
+  }
+  .input::placeholder {
+    color: #6b7280;
+    font-weight: 600;
+  }
+  .input:focus {
+    background: #fff;
+    transform: translate(-2px, -2px);
+    box-shadow: 4px 4px 0 #000;
+  }
+  select.input {
+    cursor: pointer;
+  }
+  .label {
+    display: block;
+    margin-bottom: 0.35rem;
+    font-family: var(--font-head);
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  html[lang="mr"] .label {
+    text-transform: none;
+    letter-spacing: 0;
+    font-size: 0.85rem;
+  }
+
+  /* Badges */
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    border: 2px solid #000;
+    padding: 0.1rem 0.55rem;
+    font-family: var(--font-head);
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    line-height: 1.6;
+  }
+  html[lang="mr"] .pill {
+    text-transform: none;
+    letter-spacing: 0;
+    font-size: 0.78rem;
+  }
+
+  /* Blood group pills */
+  .blood-pill {
+    border: 2px solid #000;
+    box-shadow: 3px 3px 0 #000;
+    background: #fff;
+    color: #000;
+    font-family: var(--font-head);
+    font-weight: 800;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+  .blood-pill:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 5px 5px 0 #000;
+    background: #fef3c7;
+  }
+  .blood-pill.active {
+    background: #facc15;
+    transform: translate(-2px, -2px);
+    box-shadow: 5px 5px 0 #000;
+  }
+  .blood-pill.active-red {
+    background: #e6302b;
+    color: #fff;
+    transform: translate(-2px, -2px);
+    box-shadow: 5px 5px 0 #000;
+  }
+
+  /* Skeleton loader */
+  .skeleton {
+    border: 3px solid #000;
+    background: linear-gradient(90deg, #e7e5de 25%, #f5f4ef 50%, #e7e5de 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.4s linear infinite;
+  }
+
+  /* Alerts */
+  .alert {
+    border: 3px solid #000;
+    padding: 0.7rem 0.9rem;
+    font-size: 0.85rem;
+    font-weight: 700;
+    animation: pop-in 0.25s ease both;
+  }
+  .alert-error {
+    background: #fecaca;
+  }
+  .alert-success {
+    background: #a7f3d0;
+  }
+  .alert-info {
+    background: #bfdbfe;
+  }
+
+  /* Nav link underline slide (footer links etc.) */
+  .link-slide {
+    background-image: linear-gradient(#facc15, #facc15);
+    background-repeat: no-repeat;
+    background-position: 0 100%;
+    background-size: 0% 3px;
+    transition: background-size 0.2s ease;
+  }
+  .link-slide:hover {
+    background-size: 100% 3px;
+  }
+}
+
+/* ---------- Animations ---------- */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes pop-in {
+  from {
+    opacity: 0;
+    transform: scale(0.94);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+@keyframes slide-down {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+@keyframes shimmer {
+  from {
+    background-position: 200% 0;
+  }
+  to {
+    background-position: -200% 0;
+  }
+}
+@keyframes float-y {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-2deg);
+  }
+  50% {
+    transform: translateY(-10px) rotate(2deg);
+  }
+}
+@keyframes heartbeat {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  14% {
+    transform: scale(1.18);
+  }
+  28% {
+    transform: scale(1);
+  }
+  42% {
+    transform: scale(1.12);
+  }
+  70% {
+    transform: scale(1);
+  }
+}
+@keyframes laser-scan {
+  0%,
+  100% {
+    top: 6%;
+  }
+  50% {
+    top: 90%;
+  }
+}
+@keyframes wiggle {
+  0%,
+  100% {
+    transform: rotate(0);
+  }
+  25% {
+    transform: rotate(-10deg);
+  }
+  75% {
+    transform: rotate(10deg);
+  }
+}
+
+.animate-fade-up {
+  animation: fade-up 0.5s ease both;
+}
+.animate-pop-in {
+  animation: pop-in 0.3s ease both;
+}
+.animate-slide-down {
+  animation: slide-down 0.22s ease both;
+}
+.animate-float {
+  animation: float-y 4s ease-in-out infinite;
+}
+.animate-heartbeat {
+  animation: heartbeat 1.8s ease-in-out infinite;
+}
+.animate-wiggle:hover {
+  animation: wiggle 0.4s ease;
+}
+.laser-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: #e6302b;
+  animation: laser-scan 2s linear infinite;
+}
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 32s linear infinite;
+}
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+/* Each route fades in */
+.page-enter {
+  animation: fade-up 0.35s ease both;
+}
+
+/* Scroll reveal (see components/Reveal.jsx) */
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.reveal.in {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}
