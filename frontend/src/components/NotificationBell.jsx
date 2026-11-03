@@ -74,7 +74,7 @@ export default function NotificationBell() {
       setUnread((c) => Math.max(0, c - 1));
       markRead(n._id).catch(() => {});
     }
-    if (n.relatedId) navigate(`/requests/${n.relatedId}`);
+    if (n.relatedId) navigate(`${n.type?.startsWith("camp_") ? "/camps" : "/requests"}/${n.relatedId}`);
   };
 
   const readAll = async () => {

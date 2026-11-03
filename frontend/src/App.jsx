@@ -22,6 +22,10 @@ import AdminVerify from "./pages/AdminVerify";
 import AdminUsers from "./pages/AdminUsers";
 import AdminDashboard from "./pages/AdminDashboard";
 import AdminReports from "./pages/AdminReports";
+import Camps from "./pages/Camps";
+import CampDetail from "./pages/CampDetail";
+import CampForm from "./pages/CampForm";
+import Awareness from "./pages/Awareness";
 
 function Layout() {
   const { pathname } = useLocation();
@@ -60,6 +64,8 @@ export default function App() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/camps" element={<Camps />} />
+        <Route path="/awareness" element={<Awareness />} />
 
         <Route element={<ProtectedRoute />}>
           <Route path="/dashboard" element={<Dashboard />} />
@@ -75,6 +81,8 @@ export default function App() {
 
         <Route element={<VerifierRoute />}>
           <Route path="/verify" element={<AdminVerify />} />
+          <Route path="/camps/new" element={<CampForm />} />
+          <Route path="/camps/:id/edit" element={<CampForm />} />
         </Route>
 
         <Route element={<AdminRoute />}>
@@ -82,6 +90,9 @@ export default function App() {
           <Route path="/admin/users" element={<AdminUsers />} />
           <Route path="/admin/reports" element={<AdminReports />} />
         </Route>
+
+        {/* After the staff routes so /camps/new is not read as an id */}
+        <Route path="/camps/:id" element={<CampDetail />} />
 
         <Route path="*" element={<NotFound />} />
       </Route>

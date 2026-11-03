@@ -16,6 +16,7 @@ import {
   Zap,
 } from "lucide-react";
 import StatsStrip from "../components/StatsStrip";
+import UpcomingCamps from "../components/UpcomingCamps";
 import Reveal from "../components/Reveal";
 import { useAuth } from "../context/AuthContext";
 import { useLang } from "../context/LanguageContext";
@@ -170,6 +171,9 @@ export default function Home() {
 
       {/* STATS */}
       <StatsStrip />
+
+      {/* CAMPS + LEARN */}
+      <UpcomingCamps />
 
       {/* THREE STEPS */}
       <section className={section}>

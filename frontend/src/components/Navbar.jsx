@@ -7,7 +7,7 @@ import NotificationBell from "./NotificationBell";
 import LangToggle from "./LangToggle";
 
 const desktopLink = ({ isActive }) =>
-  `border-2 px-3 py-2 font-head text-[13px] font-extrabold uppercase transition ${
+  `whitespace-nowrap border-2 px-2.5 py-2 font-head text-[12px] font-extrabold uppercase transition ${
     isActive
       ? "border-black bg-brand-yellow shadow-brutal-sm"
       : "border-transparent hover:border-black hover:bg-brand-yellow/50"
@@ -57,6 +57,8 @@ export default function Navbar() {
           { to: "/dashboard", label: t("nav.dashboard") },
         ]
       : []),
+    { to: "/camps", label: t("nav.camps") },
+    { to: "/awareness", label: t("nav.learn") },
     ...(canVerify ? [{ to: "/verify", label: t("nav.verify") }] : []),
     ...(isAdmin ? [{ to: "/admin", label: t("nav.admin"), end: true }] : []),
   ];
@@ -97,8 +99,8 @@ export default function Navbar() {
           </Link>
 
           {/* Desktop links */}
-          <div className="hidden items-center gap-1 lg:flex">
-            {links.map((l) => (
+          <div className="hidden items-center gap-1 xl:flex">
+            {links.filter((l) => l.to !== "/").map((l) => (
               <NavLink key={l.to} to={l.to} end={l.end} className={desktopLink}>
                 {l.label}
               </NavLink>
@@ -110,11 +112,11 @@ export default function Navbar() {
             {user && <NotificationBell />}
 
             {user ? (
-              <button onClick={handleLogout} className="btn-outline btn-sm hidden lg:inline-flex">
-                <LogOut size={14} /> {t("nav.logout")}
+              <button onClick={handleLogout} className="btn-outline btn-sm hidden xl:inline-flex" aria-label={t("nav.logout")}>
+                <LogOut size={14} /> <span className="hidden 2xl:inline">{t("nav.logout")}</span>
               </button>
             ) : (
-              <div className="hidden items-center gap-2 lg:flex">
+              <div className="hidden items-center gap-2 xl:flex">
                 <Link to="/login" className="btn-outline btn-sm">
                   {t("nav.login")}
                 </Link>
@@ -125,7 +127,7 @@ export default function Navbar() {
             )}
 
             <button
-              className="grid h-10 w-10 place-items-center border-[3px] border-black bg-brand-yellow shadow-brutal-sm transition active:translate-x-0.5 active:translate-y-0.5 lg:hidden"
+              className="grid h-10 w-10 place-items-center border-[3px] border-black bg-brand-yellow shadow-brutal-sm transition active:translate-x-0.5 active:translate-y-0.5 xl:hidden"
               onClick={() => setOpen((v) => !v)}
               aria-label={t("nav.menu")}
               aria-expanded={open}
@@ -137,7 +139,7 @@ export default function Navbar() {
 
         {/* Mobile menu */}
         {open && (
-          <div className="animate-slide-down max-h-[calc(100vh-7rem)] overflow-y-auto border-t-4 border-black bg-brand-bg px-4 py-4 lg:hidden">
+          <div className="animate-slide-down max-h-[calc(100vh-7rem)] overflow-y-auto border-t-4 border-black bg-brand-bg px-4 py-4 xl:hidden">
             <div className="mx-auto flex max-w-md flex-col gap-2.5">
               {links.map((l) => (
                 <NavLink key={l.to} to={l.to} end={l.end} className={mobileLink}>

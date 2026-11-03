@@ -752,4 +752,9 @@ const mr = {
   "report.thanks": "धन्यवाद. प्रशासक या मागणीची तपासणी करतील.",
 };
 
-export const translations = { en, mr };
+import { campEn, campMr } from "./campTranslations";
+
+export const translations = {
+  en: { ...en, ...campEn },
+  mr: { ...mr, ...campMr },
+};

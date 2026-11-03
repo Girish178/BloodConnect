@@ -13,6 +13,8 @@ export default function Footer() {
         { to: "/donors", label: t("nav.findDonors") },
         { to: "/requests", label: t("nav.requests") },
         { to: "/requests/new", label: t("footer.requestBlood") },
+        { to: "/camps", label: t("footer.camps") },
+        { to: "/awareness", label: t("footer.learn") },
         { to: "/dashboard", label: t("nav.dashboard") },
       ]
     : [
